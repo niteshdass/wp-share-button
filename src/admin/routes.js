@@ -1,17 +1,18 @@
-import Admin from './Components/Admin.vue';
-import Contact from './Components/Contact.vue';
+import inlinePage from "./Components/inlinePage.vue";
+import stickyPage from "./Components/stickyPage.vue";
 
-export default [{
-        path: '/',
-        name: 'dashboard',
-        component: Admin,
-        meta: {
-            active: 'dashboard'
-        },
+export default [
+  {
+    path: "/",
+    name: "inline-share-button",
+    component: inlinePage,
+    meta: {
+      active: "inline-share-button",
     },
-    {
-        path: '/contact',
-        name: 'contact',
-        component: Contact
-    }
+  },
+  {
+    path: "/sticky-share-button",
+    name: "stickyShareButton",
+    component: stickyPage,
+  },
 ];

@@ -16,6 +16,7 @@ define('WPSB_VERSION', '1.0.5');
 // This will automatically update, when you run dev or production
 define('WPSB_DEVELOPMENT', 'yes');
 
+use  WPShareButton\Classes\Vite;
 class WPShareButton {
     public function boot()
     {
@@ -24,6 +25,7 @@ class WPShareButton {
         $this->ActivatePlugin();
         $this->renderMenu();
         $this->disableUpdateNag();
+
     }
 
     public function loadClasses()
@@ -47,15 +49,15 @@ class WPShareButton {
                 'dashicons-editor-code',
                 25
             );
-            $submenu['wp-share-button.php']['dashboard'] = array(
-                'Dashboard',
+            $submenu['wp-share-button.php']['inline-share-button'] = array(
+                'Inline Share Button',
                 'manage_options',
                 'admin.php?page=wp-share-button.php#/',
             );
-            $submenu['wp-share-button.php']['contact'] = array(
-                'Contact',
+            $submenu['wp-share-button.php']['sticky-share-button'] = array(
+                'Sticky Share Button',
                 'manage_options',
-                'admin.php?page=wp-share-button.php#/contact',
+                'admin.php?page=wp-share-button.php#/sticky-share-button',
             );
         });
     }
@@ -73,17 +75,27 @@ class WPShareButton {
         wp_localize_script('WPWVT-script-boot', 'WPWVTAdmin', $WPWVT);
 
         echo '<div class="WPWVT-admin-page" id="WPWVT_app">
-            <div class="main-menu text-white-200 bg-wheat-600 p-4">
-                <router-link to="/">
-                    Home
-                </router-link> |
-                <router-link to="/contact" >
-                    Contacts
-                </router-link>
+            <div class="wpsb-main-menu main-menu text-white-200 bg-wheat-600 p-4">
+                <div class="wpsv-logo">
+                    <img src="' . WPSB_URL . 'assets/images/logo.png" alt="logo" />
+                </div>
+                <div class="wpsv-menu">
+                    <router-link to="/">
+                        Inline Share Button
+                    </router-link> 
+                    <router-link to="/sticky-share-button" >
+                        Sticky Share Button
+                    </router-link>
+                    <router-link to="/sticky-share-button" >
+                        Settings
+                    </router-link>
+                </div>
             </div>
             <hr/>
             <router-view></router-view>
         </div>';
+
+        Vite::enqueueStyle('WPWVT-main-css', 'scss/admin/app.scss');
     }
 
     public function registerShortCodes()
@@ -115,6 +127,14 @@ class WPShareButton {
         });
     }
 }
+
+add_action('plugins_loaded', function () {
+    
+
+    include WPSB_DIR.'includes/Classes/Bootstrap.php';
+    $bootstrap = new \WPShareButton\Classes\Bootstrap();
+    $bootstrap->boot();
+});
 
 (new WPShareButton())->boot();
 

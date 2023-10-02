@@ -1,3 +1,54 @@
 a:focus {
-    box-shadow: none;
+  box-shadow: none;
+}
+hr {
+  border: 0 !important;
+}
+.wpsb-main-menu {
+  background: white;
+  border-bottom: 1px solid rgb(222, 221, 220);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  margin: 0 -20px;
+  overflow: hidden;
+  display: block;
+  padding: 10px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  :first-child {
+    margin-right: 10px;
+  }
+  :last-child {
+    margin-left: 10px;
+  }
+  .wpsv-logo {
+    img {
+      width: 42px;
+    }
+  }
+  .wpsv-menu {
+    background: #fff5f5;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 50px;
+    a {
+      background: rgb(128 0 128 / 2%);
+      padding: 10px 20px;
+      border: 1px solid $primary-border;
+      border-radius: 50px;
+      font-weight: 600;
+      &:hover {
+        color: $primary;
+        border: 1px solid $primary;
+      }
+    }
+    .router-link-active {
+      color: $primary;
+      border: 1px solid $primary;
+      background: $primary-shadow;
+    }
+  }
 }
